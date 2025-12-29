@@ -25,7 +25,6 @@ A foundational library for **reproducible Monte Carlo simulation**, random numbe
 Key capabilities include:
 
 - High‑quality random number generation (HDR RNGs)
-- Support for SIPmath‑style probabilistic tables
 - Metalog distribution utilities
 - Reproducible sampling pipelines
 - Building blocks for scalable risk aggregation engines
