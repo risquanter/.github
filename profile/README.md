@@ -26,7 +26,7 @@ Key capabilities include:
 
 - High‑quality random number generation (HDR RNGs)
 - Metalog distribution utilities
-- Reproducible sampling pipelines
+- Foundations for reproducible sampling pipelines
 - Building blocks for scalable risk aggregation engines
 
 ---
