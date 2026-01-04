@@ -17,7 +17,56 @@ Risquanter aims to bridge the gap between academic research, enterprise‑grade 
 
 ## 📦 Open‑Source Repositories
 
-### **1. simulation-util**  
+### 1. **Risquanter Register — Quantitative Risk Registry**
+**An in-progress Quantitative Risk Registry and Monte Carlo simulation engine for hierarchical risk portfolios.**
+
+**Short description:** The `register` repository implements a reproducible, auditable registry for quantitative risk portfolios and a Monte Carlo engine optimized for hierarchical portfolios and sparse trial storage. It is designed for deterministic parallel execution, provenance capture, and composable mitigation primitives suitable for production risk workflows.
+
+**Key capabilities include:**
+- **Hierarchical Risk Trees:** Model complex portfolios with nested portfolios and leaves representing individual risk items.
+- **Sparse Trial Storage:** Memory‑efficient representation that stores only non‑zero losses per trial to scale large simulations.
+- **Deterministic Parallelism:** Reproducible parallel execution using a hierarchical HDR PRNG seed scheme to ensure full reproducibility across runs and environments.
+- **Distribution Support:** Expert‑opinion (Metalog) and parametric distributions (e.g., lognormal) with confidence‑interval parameterization and percentile/quantile interfaces.
+- **Mitigation Primitives:** Composable transforms such as reduction, deductible, cap, layered coverage, and policy aggregation to model real‑world insurance and mitigation constructs.
+- **Provenance & Auditability:** Complete metadata capture for each run, including HDR seed hierarchy and configuration, enabling full audit trails and reproducible results.
+- **HTTP API:** Endpoints for submitting portfolio definitions, configuring `nTrials`, running simulations, and retrieving LEC and other metrics with provenance metadata.
+
+**Example portfolio (request body)**
+```json
+{
+  "name": "Cyber Portfolio",
+  "root": {
+    "type": "portfolio",
+    "id": "cyber-root",
+    "name": "All Cyber Risks",
+    "children": [
+      {
+        "type": "leaf",
+        "id": "ransomware",
+        "name": "Ransomware Attack",
+        "distributionType": "lognormal",
+        "probability": 0.15,
+        "minLoss": 50000,
+        "maxLoss": 5000000,
+        "confidenceInterval": 0.90
+      },
+      {
+        "type": "leaf",
+        "id": "data-breach",
+        "name": "Data Breach",
+        "distributionType": "expert",
+        "probability": 0.25,
+        "percentiles": [0.1, 0.5, 0.9],
+        "quantiles": [10000, 75000, 500000]
+      }
+    ]
+  },
+  "nTrials": 10000
+}
+```
+
+
+### **2. simulation-util**  
 A foundational library for **reproducible Monte Carlo simulation**, random number generation, and distribution utilities.
 
 🔗 https://github.com/risquanter/simulation-util
@@ -31,7 +80,7 @@ Key capabilities include:
 
 ---
 
-### **2. vague-quantifier-logic**  
+### **3. vague-quantifier-logic**  
 A Scala 3 implementation of **first‑order logic with vague quantifiers**, translated and extended from academic work by Harrison, Fermüller, and others.
 
 🔗 https://github.com/risquanter/vague-quantifier-logic
